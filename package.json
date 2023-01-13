@@ -6,7 +6,7 @@
   "scripts": {
     "dev:build": "env-cmd -e development webpack --mode development",
     "prod:build": "env-cmd -e production webpack --mode production",
-    "deploy:content": "env-cmd -e production node xlsx-to-json-algolia.js",
+    "deploy:content": "env-cmd -e content node xlsx-to-json-algolia.js",
     "deploy:app": "gh-pages -d dist"
   },
   "repository": {
