@@ -22,13 +22,20 @@ fs.readdir('./xlsx/', (err, files) => {
         var xlData1 = XlsxToJsonToGedcom.utils.sheet_to_json(workbook.Sheets[sheet_name_list[1]]);
 
         xlData0.map(({docnmb, fio, place, notes = '', year}, index, ss) => {
-            census1925.push({docnmb, fio, place, notes, year, objectID: index});
+            fio && census1925.push({docnmb, fio, place, notes, year, objectID: `${index}-1925`});
         });
+        console.log(census1925.length);
+        xlData1.map(({docnmb, fio, place, notes = '', year}, index, ss) => {
+            fio && census1925.push({docnmb, fio, place, notes, year, objectID: `${index}-1926`});
+        });
+        console.log(census1925.length);
 
     });
+    console.log(census1925.length);
     index.clearObjects().then(() => {
         return index.saveObjects(census1925).then(({ objectIDs }) => {
-            console.log('objectIDs', JSON.stringify(objectIDs));
+            console.log('objectIDs', objectIDs.length);
+            fs.writeFileSync(`./censusIndex.json`, `${JSON.stringify(census1925)}`, {encoding: 'utf8', flag: 'w'});
         })
     }).catch((e) => console.log('catch', e));
 });
