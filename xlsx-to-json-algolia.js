@@ -21,23 +21,81 @@ fs.readdir('./xlsx/', (err, files) => {
         var xlData0 = XlsxToJsonToGedcom.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
         var xlData1 = XlsxToJsonToGedcom.utils.sheet_to_json(workbook.Sheets[sheet_name_list[1]]);
 
-        xlData0.map(({docnmb, fio, place, notes = '', year, page, fod, nationality, total, male, female, literate, absent}, index, ss) => {
+        xlData0.map(({
+                         docnmb,
+                         fio,
+                         place,
+                         notes = '',
+                         year,
+                         page,
+                         fod,
+                         nationality,
+                         total,
+                         male,
+                         female,
+                         literate,
+                         absent,
+                         region, area, selsovet
+                     }, index, ss) => {
             fio && census1925.push({
-                docnmb, fio, place, notes, year, page, fod, nationality, total, male, female, literate, absent,
+                docnmb,
+                fio,
+                place,
+                notes,
+                year,
+                page,
+                fod,
+                nationality,
+                total,
+                male,
+                female,
+                literate,
+                absent,
+                region,
+                area,
+                selsovet,
                 objectID: `${index}-1925`
             });
         });
-        console.log(census1925.length);
-        xlData1.map(({docnmb, fio, place, notes = '', year, page, fod, nationality, total, male, female, literate, absent}, index, ss) => {
+        xlData1.map(({
+                         docnmb,
+                         fio,
+                         place,
+                         notes = '',
+                         year,
+                         page,
+                         fod,
+                         nationality,
+                         total,
+                         male,
+                         female,
+                         literate,
+                         absent, region, area, selsovet
+                     }, index, ss) => {
             fio && census1925.push({
-                docnmb, fio, place, notes, year, page, fod, nationality, total, male, female, literate, absent,
+                docnmb,
+                fio,
+                place,
+                notes,
+                year,
+                page,
+                fod,
+                nationality,
+                total,
+                male,
+                female,
+                literate,
+                absent,
+                region,
+                area,
+                selsovet,
                 objectID: `${index}-1926`
             });
         });
     });
     index.clearObjects().then((del) => {
         console.log('clearObjects', del);
-        return index.saveObjects(census1925).then(({ objectIDs }) => {
+        return index.saveObjects(census1925).then(({objectIDs}) => {
             console.log('objectIDs', objectIDs.length);
             fs.writeFileSync(`./censusIndex.json`, `${JSON.stringify(census1925)}`, {encoding: 'utf8', flag: 'w'});
         })
