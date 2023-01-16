@@ -31,10 +31,10 @@ fs.readdir('./xlsx/', (err, files) => {
                          fod,
                          nationality,
                          total,
-                         male,
-                         female,
-                         literate,
-                         absent,
+                         male = '-',
+                         female = '-',
+                         literate = '-',
+                         absent = '-',
                          region, area, selsovet
                      }, index, ss) => {
             fio && census1925.push({
@@ -67,10 +67,10 @@ fs.readdir('./xlsx/', (err, files) => {
                          fod,
                          nationality,
                          total,
-                         male,
-                         female,
-                         literate,
-                         absent, region, area, selsovet
+                         male = '-',
+                         female = '-',
+                         literate = '-',
+                         absent = '-', region, area, selsovet
                      }, index, ss) => {
             fio && census1925.push({
                 docnmb,
