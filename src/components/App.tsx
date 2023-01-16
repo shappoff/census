@@ -3,6 +3,7 @@ import {default as React} from 'react';
 import useDebounce from "./useDebounce";
 import List from "./List";
 import IconInfo from "../icons/info-tooltip.svg";
+import {DropDownComponent} from "./DropDownComponent";
 
 const {
     applicationID, searchOnlyAPIKey, index_name
@@ -18,13 +19,34 @@ const App = () => {
     const [hits, setHits] = React.useState<Array<any>>([]);
     const [facets, setFacets] = React.useState<any>({});
     const [nbHits, setNbHits] = React.useState<number>(0);
+
+    const [regionFilter, setRegionFilter] = React.useState<any>([]);
+    const [areaFilter, setAreaFilter] = React.useState<any>([]);
+    const [selsovetFilter, setSelsovetFilter] = React.useState<any>([]);
     const [placeFilter, setPlaceFilter] = React.useState<any>([]);
+
     const [currentAlgoliaIndex, setCurrentAlgoliaIndex] = React.useState(client.initIndex(index_name));
 
     const debouncedSearchTerm = useDebounce(searchTerm, 1000);
 
     const searchHandler = ({target}: any) => {
         setSearchTerm(target.value);
+    }
+
+    const regionFilterHanfler = (selectedItems: any) => {
+        setRegionFilter(selectedItems.map(({value}: any) => value));
+    }
+
+    const areaFilterHanfler = (selectedItems: any) => {
+        setAreaFilter(selectedItems.map(({value}: any) => value));
+    }
+
+    const selsovetFilterHanfler = (selectedItems: any) => {
+        setSelsovetFilter(selectedItems.map(({value}: any) => value));
+    }
+
+    const placeFilterHanfler = (selectedItems: any) => {
+        setPlaceFilter(selectedItems.map(({value}: any) => value));
     }
 
     const keysHandler = (e: any) => {
@@ -42,7 +64,6 @@ const App = () => {
             .then(({facets, nbHits}: any) => {
                 setFacets(facets);
                 setNbHits(nbHits);
-                setPlaceFilter(Object.keys(facets.place) as Array<string>);
             });
     }, []);
 
@@ -51,6 +72,9 @@ const App = () => {
             currentAlgoliaIndex.search(debouncedSearchTerm, {
                 facetFilters: [
                     [...placeFilter.map((place: string) => `place:${place}`)],
+                    [...regionFilter.map((region: string) => `region:${region}`)],
+                    [...areaFilter.map((area: string) => `area:${area}`)],
+                    [...selsovetFilter.map((selsovet: string) => `selsovet:${selsovet}`)],
                 ]
             })
                 .then(({hits, facets}: any) => {
@@ -59,35 +83,50 @@ const App = () => {
         }
     }, [debouncedSearchTerm, placeFilter]);
 
-    const placeClickHandler = (e: any) => {
-        if (e.target.checked) {
-            setPlaceFilter([...placeFilter, e.target.value])
-        } else {
-            setPlaceFilter(placeFilter.filter((item: any) => item !== e.target.value));
-        }
-
-    };
-
     return (
         <>
             <div className="info-main-icon">
                 <img src={IconInfo} alt={`Всего в базе записей - ${nbHits}`} title={`Всего в базе записей - ${nbHits}`}
                      data-bs-toggle="tooltip"/>
             </div>
-            <div className="years-facets">
-                {
-                    facets && facets.place && Object.keys(facets.place).map((place, index) =>
-                        <div key={index + 'facet'} className="form-check form-check-inline">
-                            <input
-                                defaultChecked
-                                onChange={placeClickHandler}
-                                value={place} id={index + ''}
-                                className="form-check-input" type="checkbox"/>
-                            <label className="form-check-label" htmlFor={index + ''}>{place}</label>
-                        </div>
-                    )
-                }
-            </div>
+            <DropDownComponent
+                placeholder="Округ"
+                items={facets && facets.region ? Object.keys(facets.region).map((facet) => ({value: facet, label: facet})) : []}
+                changeHandler={regionFilterHanfler}
+            />
+            {
+                regionFilter.length ?
+                    <DropDownComponent
+                        placeholder="Район"
+                        items={facets && facets.area ? Object.keys(facets.area).map((facet) => ({
+                            value: facet,
+                            label: facet
+                        })) : []}
+                        changeHandler={areaFilterHanfler}
+                    /> : null
+            }
+            {
+                areaFilter.length ?
+                    <DropDownComponent
+                        placeholder="Сельсовет"
+                        items={facets && facets.selsovet ? Object.keys(facets.selsovet).map((facet) => ({
+                            value: facet,
+                            label: facet
+                        })) : []}
+                        changeHandler={selsovetFilterHanfler}
+                    /> : null
+            }
+            {
+                selsovetFilter.length ?
+                    <DropDownComponent
+                        placeholder="Населенный пункт"
+                        items={facets && facets.place ? Object.keys(facets.place).map((facet) => ({
+                            value: facet,
+                            label: facet
+                        })) : []}
+                        changeHandler={placeFilterHanfler}
+                    /> : null
+            }
             <input autoFocus onInput={searchHandler} onChange={keysHandler} type="text" value={searchTerm} id="input"/>
             <List hits={hits} nbHits={nbHits}></List>
         </>
