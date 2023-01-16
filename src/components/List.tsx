@@ -19,13 +19,13 @@ const List = ({hits, nbHits}: any) => {
                         <thead>
                         <tr>
                             <th>ФИО</th>
-                            <th>Нацианальность</th>
+                            <th>Нас.пункт</th>
                             <th>Всего душ</th>
                             <th>Мужчин</th>
                             <th>Женщин</th>
                             <th>Грамотных</th>
                             <th>Отсутствует более месяца</th>
-                            <th>Нас.пункт</th>
+                            <th>Нацианальность</th>
                             <th>год</th>
                             <th>Заметки</th>
                         </tr>
@@ -38,13 +38,13 @@ const List = ({hits, nbHits}: any) => {
                                     <tr key={index}>
                                         <td className="born-name-tr"
                                             dangerouslySetInnerHTML={{__html: _highlightResult?.fio?.value}}></td>
-                                        <td>{nationality}</td>
+                                        <td>{place}</td>
                                         <td>{total}</td>
                                         <td>{male}</td>
                                         <td>{female}</td>
                                         <td>{literate}</td>
                                         <td>{absent}</td>
-                                        <td>{place}</td>
+                                        <td>{nationality}</td>
                                         <td>{year}</td>
                                         <td className="note-info">{
                                             notes ? <img src={IconInfo} alt={notes} title={notes}
