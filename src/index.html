@@ -10,11 +10,20 @@
     <style>
         #input {
             padding: 5px;
-            width: 96%;
+            width: calc(98vw);
             margin: 0 10px;
         }
-        .type-table, .info-main-icon, .years-facets {
+        .type-table, .info-main-icon, .years-facets, .filter-panel {
             margin: 10px;
+        }
+        @media (min-width: 768px) {
+            .filter-panel {
+                display: flex;
+            }
+        }
+        .basic-multi-select {
+            min-width: 24%;
+            margin: 0 0.4%;
         }
         .church-td {
             max-width: 100px;

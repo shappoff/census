@@ -89,44 +89,46 @@ const App = () => {
                 <img src={IconInfo} alt={`Всего в базе записей - ${nbHits}`} title={`Всего в базе записей - ${nbHits}`}
                      data-bs-toggle="tooltip"/>
             </div>
-            <DropDownComponent
-                placeholder="Округ"
-                items={facets && facets.region ? Object.keys(facets.region).map((facet) => ({value: facet, label: facet})) : []}
-                changeHandler={regionFilterHanfler}
-            />
-            {
-                regionFilter.length ?
-                    <DropDownComponent
-                        placeholder="Район"
-                        items={facets && facets.area ? Object.keys(facets.area).map((facet) => ({
-                            value: facet,
-                            label: facet
-                        })) : []}
-                        changeHandler={areaFilterHanfler}
-                    /> : null
-            }
-            {
-                areaFilter.length ?
-                    <DropDownComponent
-                        placeholder="Сельсовет"
-                        items={facets && facets.selsovet ? Object.keys(facets.selsovet).map((facet) => ({
-                            value: facet,
-                            label: facet
-                        })) : []}
-                        changeHandler={selsovetFilterHanfler}
-                    /> : null
-            }
-            {
-                selsovetFilter.length ?
-                    <DropDownComponent
-                        placeholder="Населенный пункт"
-                        items={facets && facets.place ? Object.keys(facets.place).map((facet) => ({
-                            value: facet,
-                            label: facet
-                        })) : []}
-                        changeHandler={placeFilterHanfler}
-                    /> : null
-            }
+            <div className="filter-panel">
+                <DropDownComponent
+                    placeholder="Округ"
+                    items={facets && facets.region ? Object.keys(facets.region).map((facet) => ({value: facet, label: facet})) : []}
+                    changeHandler={regionFilterHanfler}
+                />
+                {
+                    regionFilter.length ?
+                        <DropDownComponent
+                            placeholder="Район"
+                            items={facets && facets.area ? Object.keys(facets.area).map((facet) => ({
+                                value: facet,
+                                label: facet
+                            })) : []}
+                            changeHandler={areaFilterHanfler}
+                        /> : null
+                }
+                {
+                    areaFilter.length ?
+                        <DropDownComponent
+                            placeholder="Сельсовет"
+                            items={facets && facets.selsovet ? Object.keys(facets.selsovet).map((facet) => ({
+                                value: facet,
+                                label: facet
+                            })) : []}
+                            changeHandler={selsovetFilterHanfler}
+                        /> : null
+                }
+                {
+                    selsovetFilter.length ?
+                        <DropDownComponent
+                            placeholder="Населенный пункт"
+                            items={facets && facets.place ? Object.keys(facets.place).map((facet) => ({
+                                value: facet,
+                                label: facet
+                            })) : []}
+                            changeHandler={placeFilterHanfler}
+                        /> : null
+                }
+            </div>
             <input autoFocus onInput={searchHandler} onChange={keysHandler} type="text" value={searchTerm} id="input"/>
             <List hits={hits} nbHits={nbHits}></List>
         </>
