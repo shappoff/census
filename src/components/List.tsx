@@ -19,6 +19,11 @@ const List = ({hits, nbHits}: any) => {
                         <thead>
                         <tr>
                             <th>ФИО</th>
+                            <th>Всего душ</th>
+                            <th>Мужчин</th>
+                            <th>Женщин</th>
+                            <th>Грамотных</th>
+                            <th>Отсутствует более месяца</th>
                             <th>Нас.пункт</th>
                             <th>год</th>
                             <th>Заметки</th>
@@ -27,11 +32,16 @@ const List = ({hits, nbHits}: any) => {
                         <tbody id="list-of-res">
                         {
                             hits.map((hits: any, index: number) => {
-                                const {place, year, notes, _highlightResult} = hits;
+                                const {place, year, total, notes, male, female, literate, absent, _highlightResult} = hits;
                                 return (
                                     <tr key={index}>
                                         <td className="born-name-tr"
                                             dangerouslySetInnerHTML={{__html: _highlightResult?.fio?.value}}></td>
+                                        <td>{total}</td>
+                                        <td>{male}</td>
+                                        <td>{female}</td>
+                                        <td>{literate}</td>
+                                        <td>{absent}</td>
                                         <td>{place}</td>
                                         <td>{year}</td>
                                         <td className="note-info">{
