@@ -2,6 +2,7 @@ import {default as React} from 'react';
 
 import useDebounce from "./useDebounce";
 import List from "./List";
+import IconInfo from "../icons/info-tooltip.svg";
 
 const {
     applicationID, searchOnlyAPIKey, index_name
@@ -16,6 +17,7 @@ const App = () => {
 
     const [hits, setHits] = React.useState<Array<any>>([]);
     const [facets, setFacets] = React.useState<any>({});
+    const [nbHits, setNbHits] = React.useState<number>(0);
     const [placeFilter, setPlaceFilter] = React.useState<any>([]);
     const [currentAlgoliaIndex, setCurrentAlgoliaIndex] = React.useState(client.initIndex(index_name));
 
@@ -37,8 +39,9 @@ const App = () => {
             hitsPerPage: 0,
             facets: ["*"]
         })
-            .then(({facets}: any) => {
+            .then(({facets, nbHits}: any) => {
                 setFacets(facets);
+                setNbHits(nbHits);
                 setPlaceFilter(Object.keys(facets.place) as Array<string>);
             });
     }, []);
@@ -67,6 +70,9 @@ const App = () => {
 
     return (
         <>
+            <div className="info-main-icon">
+                <img src={IconInfo} alt={`Всего в базе записей - ${nbHits}`} title={`Всего в базе записей - ${nbHits}`} data-bs-toggle="tooltip" />
+            </div>
             <div className="years-facets">
                 {
                     facets && facets.place && Object.keys(facets.place).map((place, index) =>
@@ -82,7 +88,7 @@ const App = () => {
                 }
             </div>
             <input autoFocus onInput={searchHandler} onChange={keysHandler} type="text" value={searchTerm} id="input"/>
-            <List hits={hits}></List>
+            <List hits={hits} nbHits={nbHits}></List>
         </>
     );
 };
