@@ -51,7 +51,7 @@ const App = () => {
             currentAlgoliaIndex.search(debouncedSearchTerm, {
                 facetFilters: [
                     [...placeFilter.map((place: string) => `place:${place}`)],
-            ]
+                ]
             })
                 .then(({hits, facets}: any) => {
                     setHits(hits);
@@ -71,7 +71,8 @@ const App = () => {
     return (
         <>
             <div className="info-main-icon">
-                <img src={IconInfo} alt={`Всего в базе записей - ${nbHits}`} title={`Всего в базе записей - ${nbHits}`} data-bs-toggle="tooltip" />
+                <img src={IconInfo} alt={`Всего в базе записей - ${nbHits}`} title={`Всего в базе записей - ${nbHits}`}
+                     data-bs-toggle="tooltip"/>
             </div>
             <div className="years-facets">
                 {
@@ -81,7 +82,7 @@ const App = () => {
                                 defaultChecked
                                 onChange={placeClickHandler}
                                 value={place} id={index + ''}
-                                className="form-check-input" type="checkbox" />
+                                className="form-check-input" type="checkbox"/>
                             <label className="form-check-label" htmlFor={index + ''}>{place}</label>
                         </div>
                     )
