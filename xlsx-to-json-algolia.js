@@ -12,7 +12,6 @@ const index = client.initIndex(`${index_name}`);
 
 fs.readdir('./xlsx/', (err, files) => {
     const census1925 = [];
-    const census1926 = [];
     files.forEach((file) => {
         console.log(file);
 
@@ -54,7 +53,7 @@ fs.readdir('./xlsx/', (err, files) => {
                 region,
                 area,
                 selsovet,
-                objectID: `${index}-1925`
+                objectID: `${index}-${selsovet}-1925`
             });
         });
         xlData1.map(({
@@ -89,7 +88,7 @@ fs.readdir('./xlsx/', (err, files) => {
                 region,
                 area,
                 selsovet,
-                objectID: `${index}-1926`
+                objectID: `${index}-${selsovet}-1926`
             });
         });
     });
