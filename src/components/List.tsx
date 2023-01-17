@@ -1,5 +1,6 @@
 import {default as React} from 'react';
 import IconInfo from '../icons/info-tooltip.svg';
+import MoreIcon from '../icons/3-vertical-dots-icon.svg';
 
 declare const bootstrap: any;
 
@@ -33,12 +34,19 @@ const List = ({hits, nbHits}: any) => {
                         <tbody id="list-of-res">
                         {
                             hits.map((hits: any, index: number) => {
-                                const {place, year, total, notes, male, female, literate, absent, nationality, _highlightResult} = hits;
+                                const {place, year, total, notes, male, female, literate, absent, nationality, selsovet, area, _highlightResult} = hits;
                                 return (
                                     <tr key={index}>
                                         <td className="born-name-tr"
                                             dangerouslySetInnerHTML={{__html: _highlightResult?.fio?.value}}></td>
-                                        <td>{place}</td>
+                                        <td className="td-place-location">
+                                            <span>{place}</span>
+                                            <img
+                                                src={MoreIcon}
+                                                title={`${selsovet} сельсовет, ${area} район`}
+                                                style={{width: '3px', marginLeft: '5px'}}
+                                                data-bs-toggle="tooltip"/>
+                                        </td>
                                         <td>{total}</td>
                                         <td>{male}</td>
                                         <td>{female}</td>
