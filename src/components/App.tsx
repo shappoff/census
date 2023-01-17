@@ -70,6 +70,7 @@ const App = () => {
     React.useEffect(() => {
         if (debouncedSearchTerm) {
             currentAlgoliaIndex.search(debouncedSearchTerm, {
+                facets: ["*"],
                 facetFilters: [
                     [...placeFilter.map((place: string) => `place:${place}`)],
                     [...regionFilter.map((region: string) => `region:${region}`)],
@@ -79,9 +80,26 @@ const App = () => {
             })
                 .then(({hits, facets}: any) => {
                     setHits(hits);
+                    setFacets(facets);
                 });
         }
-    }, [debouncedSearchTerm, placeFilter]);
+    }, [debouncedSearchTerm]);
+
+    React.useEffect(() => {
+        currentAlgoliaIndex.search(debouncedSearchTerm, {
+            facets: ["*"],
+            hitsPerPage: 0,
+            facetFilters: [
+                [...placeFilter.map((place: string) => `place:${place}`)],
+                [...regionFilter.map((region: string) => `region:${region}`)],
+                [...areaFilter.map((area: string) => `area:${area}`)],
+                [...selsovetFilter.map((selsovet: string) => `selsovet:${selsovet}`)],
+            ]
+        })
+            .then(({hits, facets}: any) => {
+                setFacets(facets);
+            });
+    }, [placeFilter.length, regionFilter.length, areaFilter.length, selsovetFilter.length]);
 
     return (
         <>
