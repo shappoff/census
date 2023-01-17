@@ -96,14 +96,14 @@ const App = () => {
             <div className="filter-panel">
                 <DropDownComponent
                     placeholder="Округ"
-                    items={facets && facets.region ? Object.keys(facets.region).map((facet) => ({value: facet, label: facet})) : []}
+                    items={facets && facets.region ? Object.keys(facets.region).sort().map((facet) => ({value: facet, label: facet})) : []}
                     changeHandler={regionFilterHanfler}
                 />
                 {
                     regionFilter.length ?
                         <DropDownComponent
                             placeholder="Район"
-                            items={facets && facets.area ? Object.keys(facets.area).map((facet) => ({
+                            items={facets && facets.area ? Object.keys(facets.area).sort().map((facet) => ({
                                 value: facet,
                                 label: facet
                             })) : []}
@@ -114,7 +114,7 @@ const App = () => {
                     areaFilter.length ?
                         <DropDownComponent
                             placeholder="Сельсовет"
-                            items={facets && facets.selsovet ? Object.keys(facets.selsovet).map((facet) => ({
+                            items={facets && facets.selsovet ? Object.keys(facets.selsovet).sort().map((facet) => ({
                                 value: facet,
                                 label: facet
                             })) : []}
@@ -125,7 +125,7 @@ const App = () => {
                     selsovetFilter.length ?
                         <DropDownComponent
                             placeholder="Населенный пункт"
-                            items={facets && facets.place ? Object.keys(facets.place).map((facet) => ({
+                            items={facets && facets.place ? Object.keys(facets.place).sort().map((facet) => ({
                                 value: facet,
                                 label: facet
                             })) : []}
