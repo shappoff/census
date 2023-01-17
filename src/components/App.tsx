@@ -4,6 +4,7 @@ import useDebounce from "./useDebounce";
 import List from "./List";
 import IconInfo from "../icons/info-tooltip.svg";
 import {DropDownComponent} from "./DropDownComponent";
+import {InitInfo} from "./InitInfo";
 
 const {
     applicationID, searchOnlyAPIKey, index_name
@@ -134,7 +135,11 @@ const App = () => {
                 }
             </div>
             <input autoFocus onInput={searchHandler} onChange={keysHandler} type="text" value={searchTerm} id="input"/>
-            <List hits={hits} nbHits={nbHits}></List>
+            {
+                hits.length ?
+                    <List hits={hits} nbHits={nbHits}></List> :
+                    <InitInfo facets={facets} nbHits={nbHits} />
+            }
         </>
     );
 };
