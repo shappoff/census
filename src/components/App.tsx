@@ -86,14 +86,6 @@ const App = () => {
 
     return (
         <>
-            <div className="info-main-icon">
-                {
-                    !hits.length && <img src={IconInfo} alt={``}
-                     data-bs-html="true"
-                     title={`Всего в базе:<br>Персон - ${nbHits}<br>Деревень - ${facets && facets.place ? Object.keys(facets.place).length : 0}<br>Сельсоветов - ${facets && facets.selsovet ? Object.keys(facets.selsovet).length : 0}`}
-                     data-bs-toggle="tooltip"/>
-                }
-            </div>
             <div className="filter-panel">
                 <DropDownComponent
                     placeholder="Округ"
