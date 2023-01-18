@@ -2,16 +2,10 @@ import {default as React} from 'react';
 import IconInfo from '../icons/info-tooltip.svg';
 import MoreIcon from '../icons/3-vertical-dots-icon.svg';
 
-declare const bootstrap: any;
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 const List = ({hits, nbHits}: any) => {
-
-    React.useEffect(() => {
-        [].forEach.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'), (tooltipTriggerEl: any) => {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
-        })
-    }, [hits.length, nbHits]);
-
 
     return (
         <>
@@ -41,11 +35,16 @@ const List = ({hits, nbHits}: any) => {
                                             dangerouslySetInnerHTML={{__html: _highlightResult?.fio?.value}}></td>
                                         <td className="td-place-location">
                                             <span>{place}</span>
-                                            <img
-                                                src={MoreIcon}
-                                                title={`${selsovet} сельсовет, ${area} район`}
-                                                style={{width: '3px', marginLeft: '5px'}}
-                                                data-bs-toggle="tooltip"/>
+                                            <OverlayTrigger
+                                                placement={'left'}
+                                                overlay={<Tooltip id={`tooltip-left`}>{`${selsovet} сельсовет, ${area} район`}</Tooltip>}
+                                            >
+                                                <img src={MoreIcon}
+                                                     title={`${selsovet} сельсовет, ${area} район`}
+                                                     alt={`${selsovet} сельсовет, ${area} район`}
+                                                    style={{width: '3px', marginLeft: '5px'}}/>
+                                            </OverlayTrigger>
+
                                         </td>
                                         <td>{total}</td>
                                         <td>{male}</td>
@@ -55,8 +54,14 @@ const List = ({hits, nbHits}: any) => {
                                         <td>{nationality}</td>
                                         <td>{year}</td>
                                         <td className="note-info">{
-                                            notes ? <img src={IconInfo} alt={notes} title={notes}
-                                                         data-bs-toggle="tooltip"/> : null
+                                            notes ?
+                                                <OverlayTrigger
+                                                    placement={'left'}
+                                                    overlay={<Tooltip id={`tooltip-left`}>{notes}</Tooltip>}
+                                                >
+                                                    <img title={notes} alt={notes} src={IconInfo}/>
+                                                </OverlayTrigger>
+                                                : null
                                         }</td>
                                     </tr>
                                 );
