@@ -27,7 +27,7 @@ const List = ({hits, nbHits}: any) => {
                         </thead>
                         <tbody id="list-of-res">
                         {
-                            hits.map((hits: any, index: number) => {
+                            hits.sort((a: any, b: any) => a.fio.localeCompare(b.fio)).map((hits: any, index: number) => {
                                 const {place, year, total, notes, male, female, literate, absent, nationality, selsovet, area, _highlightResult} = hits;
                                 return (
                                     <tr key={index}>
