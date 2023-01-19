@@ -34,15 +34,18 @@ const List = ({hits, nbHits}: any) => {
                                         <td className="born-name-tr"
                                             dangerouslySetInnerHTML={{__html: _highlightResult?.fio?.value}}></td>
                                         <td className="td-place-location">
-                                            <span>{place}</span>
+
                                             <OverlayTrigger
-                                                placement={'left'}
-                                                overlay={<Tooltip id={`tooltip-left`}>{`${selsovet} сельсовет, ${area} район`}</Tooltip>}
+                                                placement={'right'}
+                                                overlay={<Tooltip id={`tooltip-rigth`}>{`${selsovet} сельсовет, ${area} район`}</Tooltip>}
                                             >
-                                                <img src={MoreIcon}
-                                                     title={`${selsovet} сельсовет, ${area} район`}
-                                                     alt={`${selsovet} сельсовет, ${area} район`}
-                                                    style={{width: '3px', marginLeft: '5px'}}/>
+                                                <span>
+                                                    <span>{place}</span>
+                                                    <img src={MoreIcon}
+                                                         title={`${selsovet} сельсовет, ${area} район`}
+                                                         alt={`${selsovet} сельсовет, ${area} район`}
+                                                         style={{width: '2px', marginLeft: '5px'}}/>
+                                                </span>
                                             </OverlayTrigger>
 
                                         </td>
