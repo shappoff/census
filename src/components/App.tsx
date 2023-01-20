@@ -19,6 +19,7 @@ const App = () => {
 
     const [hits, setHits] = React.useState<Array<any>>([]);
     const [facets, setFacets] = React.useState<any>({});
+    const [defaultFacets, setdefaultFacets] = React.useState<any>({});
     const [nbHits, setNbHits] = React.useState<number>(0);
 
     const [regionFilter, setRegionFilter] = React.useState<any>([]);
@@ -64,6 +65,7 @@ const App = () => {
         })
             .then(({facets, nbHits}: any) => {
                 setFacets(facets);
+                setdefaultFacets(facets);
                 setNbHits(nbHits);
             });
     }, []);
@@ -130,7 +132,7 @@ const App = () => {
             {
                 hits.length ?
                     <List hits={hits} nbHits={nbHits}></List> :
-                    <InitInfo facets={facets} nbHits={nbHits} />
+                    <InitInfo facets={defaultFacets} nbHits={nbHits} />
             }
         </>
     );
