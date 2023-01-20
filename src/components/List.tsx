@@ -1,6 +1,5 @@
 import {default as React} from 'react';
 import IconInfo from '../icons/info-tooltip.svg';
-import MoreIcon from '../icons/3-vertical-dots-icon.svg';
 
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -28,7 +27,8 @@ const List = ({hits, nbHits}: any) => {
                         <tbody id="list-of-res">
                         {
                             hits.sort((a: any, b: any) => a.fio.localeCompare(b.fio)).map((hits: any, index: number) => {
-                                const {place, year, total, notes, male, female, literate, absent, nationality, selsovet, area, _highlightResult} = hits;
+                                const {place, year, total, notes, male, female, literate, absent, nationality, region, selsovet, area, _highlightResult} = hits;
+                                const placeTooltipDescription = `${selsovet} сельсовет, ${area} район, ${region} округ`;
                                 return (
                                     <tr key={index}>
                                         <td className="born-name-tr"
@@ -37,14 +37,17 @@ const List = ({hits, nbHits}: any) => {
 
                                             <OverlayTrigger
                                                 placement={'right'}
-                                                overlay={<Tooltip id={`tooltip-rigth`}>{`${selsovet} сельсовет, ${area} район`}</Tooltip>}
+                                                overlay={<Tooltip id={`tooltip-rigth`}>{placeTooltipDescription}</Tooltip>}
                                             >
                                                 <span>
                                                     <span>{place}</span>
-                                                    <img src={MoreIcon}
-                                                         title={`${selsovet} сельсовет, ${area} район`}
-                                                         alt={`${selsovet} сельсовет, ${area} район`}
-                                                         style={{width: '2px', marginLeft: '5px'}}/>
+                                                    <svg id="Layer_1"
+                                                         data-name="Layer 1"
+                                                         style={{width: '2px', marginLeft: '5px'}}
+                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29.96 122.88">
+                                                        <path className="cls-1"
+                                                              d="M15,0A15,15,0,1,1,0,15,15,15,0,0,1,15,0Zm0,92.93a15,15,0,1,1-15,15,15,15,0,0,1,15-15Zm0-46.47a15,15,0,1,1-15,15,15,15,0,0,1,15-15Z"/>
+                                                    </svg>
                                                 </span>
                                             </OverlayTrigger>
 
