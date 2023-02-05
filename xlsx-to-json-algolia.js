@@ -10,6 +10,10 @@ const algoliasearch = require("algoliasearch");
 const client = algoliasearch(`${applicationID}`, `${adminAPIKey}`);
 const index = client.initIndex(`${index_name}`);
 
+const createobjectID = (fod, page, docnmb, total, index) => {
+    return `${fod ? fod.replace('НАРБ-', '').replace('НАРБ', '') : index}-${`${page}`.replace('об', 'b')}-${docnmb}-${total}`.replace(/ /g, '');
+}
+
 fs.readdir('./xlsx/', (err, files) => {
     const census1925 = [];
     files.forEach((file) => {
@@ -26,8 +30,8 @@ fs.readdir('./xlsx/', (err, files) => {
                          place,
                          notes = '',
                          year,
-                         page,
-                         fod,
+                         page = '',
+                         fod = '',
                          nationality,
                          total,
                          male = '-',
@@ -36,6 +40,7 @@ fs.readdir('./xlsx/', (err, files) => {
                          absent = '-',
                          region, area, selsovet
                      }, index, ss) => {
+            const objectID = createobjectID(fod, page, docnmb, total, index);
             fio && census1925.push({
                 docnmb,
                 fio,
@@ -53,7 +58,7 @@ fs.readdir('./xlsx/', (err, files) => {
                 region,
                 area,
                 selsovet,
-                objectID: `${index}-${selsovet}-1925`
+                objectID
             });
         });
         xlData1.map(({
@@ -62,8 +67,8 @@ fs.readdir('./xlsx/', (err, files) => {
                          place,
                          notes = '',
                          year,
-                         page,
-                         fod,
+                         page = '',
+                         fod = '',
                          nationality,
                          total,
                          male = '-',
@@ -71,6 +76,7 @@ fs.readdir('./xlsx/', (err, files) => {
                          literate = '-',
                          absent = '-', region, area, selsovet
                      }, index, ss) => {
+            const objectID = createobjectID(fod, page, docnmb, total, index);
             fio && census1925.push({
                 docnmb,
                 fio,
@@ -88,15 +94,15 @@ fs.readdir('./xlsx/', (err, files) => {
                 region,
                 area,
                 selsovet,
-                objectID: `${index}-${selsovet}-1926`
+                objectID
             });
         });
     });
-    index.clearObjects().then((del) => {
-        console.log('clearObjects', del);
-        return index.saveObjects(census1925).then(({objectIDs}) => {
-            console.log('objectIDs', objectIDs.length);
+    // index.clearObjects().then((del) => {
+    //     console.log('clearObjects', del);
+    //     return index.saveObjects(census1925).then(({objectIDs}) => {
+    //         console.log('objectIDs', objectIDs.length);
             fs.writeFileSync(`./censusIndex.json`, `${JSON.stringify(census1925)}`, {encoding: 'utf8', flag: 'w'});
-        })
-    }).catch((e) => console.log('catch', e));
+        // })
+    // }).catch((e) => console.log('catch', e));
 });
