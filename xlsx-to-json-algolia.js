@@ -98,11 +98,8 @@ fs.readdir('./xlsx/', (err, files) => {
             });
         });
     });
-    index.clearObjects().then((del) => {
-        console.log('clearObjects', del);
-        return index.saveObjects(census1925).then(({objectIDs}) => {
-            console.log('objectIDs', objectIDs.length);
-            fs.writeFileSync(`./censusIndex.json`, `${JSON.stringify(census1925)}`, {encoding: 'utf8', flag: 'w'});
-        })
+    index.saveObjects(census1925).then(({objectIDs}) => {
+        console.log('objectIDs', objectIDs.length);
+        fs.writeFileSync(`./censusIndex.json`, `${JSON.stringify(census1925)}`, {encoding: 'utf8', flag: 'w'});
     }).catch((e) => console.log('catch', e));
 });
