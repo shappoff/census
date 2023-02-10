@@ -7,7 +7,7 @@
     "app:dev:build": "env-cmd -e development webpack --mode development",
     "app:prod:build": "env-cmd -e production webpack --mode production",
     "app:deploy": "gh-pages -d dist",
-    "content:deploy": "env-cmd -e content node xlsx-to-json-algolia.js"
+    "content:deploy": "env-cmd -e content node sheets.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,9 @@
   "homepage": "https://github.com/shappoff/metrics#readme",
   "dependencies": {
     "algoliasearch": "^4.14.2",
+    "@google-cloud/local-auth": "^2.1.0",
+    "googleapis": "^105.0.0",
+    "firebase": "^7.24.0",
     "bootstrap": "^5.2.3",
     "react": "^16.13.1",
     "react-bootstrap": "^2.7.0",
