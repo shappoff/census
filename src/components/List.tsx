@@ -4,7 +4,7 @@ import IconInfo from '../icons/info-tooltip.svg';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-const List = ({hits, nbHits}: any) => {
+const List: React.FC<any> = ({hits, nbHits}: any) => {
 
     return (
         <>

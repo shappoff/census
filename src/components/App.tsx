@@ -14,7 +14,7 @@ const algoliasearch = require("algoliasearch");
 
 const client = algoliasearch(applicationID, searchOnlyAPIKey);
 
-const App = () => {
+const App: React.FC<any> = () => {
     const [searchTerm, setSearchTerm] = React.useState<string>('');
 
     const [hits, setHits] = React.useState<Array<any>>([]);

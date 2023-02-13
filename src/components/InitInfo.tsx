@@ -1,6 +1,6 @@
 import {CSSProperties, default as React} from 'react';
 
-export const InitInfo = ({nbHits, facets}: any) => {
+export const InitInfo: React.FC<any> = ({nbHits, facets}: any) => {
     return <div className="alert alert-dark" role="alert">
         Всего в базе:<br/>
         Персон - {nbHits}<br/>

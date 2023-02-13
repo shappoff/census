@@ -9,7 +9,7 @@ export interface ColourOption {
     readonly isDisabled?: boolean;
 }
 
-export const DropDownComponent = ({items, changeHandler, placeholder}: any) => {
+export const DropDownComponent: React.FC<any> = ({items, changeHandler, placeholder}: any) => {
 
     return (
         <Select
