@@ -15,6 +15,8 @@ const {
     index_name
 } = process.env;
 
+console.log('process.env.index_name', index_name);
+
 const WEBPACK_MODES = {
     development: 'development',
     production: 'production'
