@@ -1,1 +1,2 @@
-export declare const InitInfo: ({ nbHits, facets }: any) => JSX.Element;
+import { default as React } from 'react';
+export declare const InitInfo: React.FC<any>;
