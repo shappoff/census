@@ -25,9 +25,18 @@ jobs:
         applicationID: ${{ vars.APPLICATIONID }}
         searchOnlyAPIKey: ${{ vars.SEARCHONLYAPIKEY }}
         index_name: ${{ vars.INDEX_NAME }}
+
+        apiKey: ${{ vars.APIKEY }}
+        authDomain: ${{ vars.AUTHDOMAIN }}
+        projectId: ${{ vars.PROJECTID }}
+        storageBucket: ${{ vars.STORAGEBUCKET }}
+        messagingSenderId: ${{ vars.MESSAGINGSENDERID }}
+        appId: ${{ vars.APPID }}
+        telegramBotToken: ${{ vars.TELEGRAMBOTTOKEN }}
+        telegramChatId: ${{ vars.TELEGRAMCHATID }}
       run: |
         npm install
-        npx webpack --mode production --env applicationID=$applicationID --env searchOnlyAPIKey=$searchOnlyAPIKey --env index_name=$index_name
+        npx webpack --mode production --env applicationID=$applicationID --env searchOnlyAPIKey=$searchOnlyAPIKey --env index_name=$index_name --env apiKey=$apiKey --env authDomain=$authDomain --env projectId=$projectId --env storageBucket=$storageBucket --env messagingSenderId=$messagingSenderId --env appId=$appId --env telegramBotToken=$telegramBotToken --env telegramChatId=$telegramChatId
         
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3

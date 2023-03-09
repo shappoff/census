@@ -10,9 +10,20 @@ const PATHS = {
 };
 
 const {
+    apiKey,
+    authDomain,
+    databaseURL,
+    projectId,
+    storageBucket,
+    messagingSenderId,
+    appId,
+
     searchOnlyAPIKey,
     applicationID,
-    index_name
+    index_name,
+
+    telegramBotToken,
+    telegramChatId,
 } = process.env;
 
 console.log('process.env.index_name', index_name);
@@ -86,9 +97,20 @@ module.exports = (env, { mode }) => {
             }),
             new webpack.DefinePlugin({
                 env: {
+                    apiKey,
+                    authDomain,
+                    databaseURL,
+                    projectId,
+                    storageBucket,
+                    messagingSenderId,
+                    appId,
+
                     searchOnlyAPIKey,
                     applicationID,
-                    index_name
+                    index_name,
+
+                    telegramBotToken,
+                    telegramChatId,
                 }
             })
         ]
