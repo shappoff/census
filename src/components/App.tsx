@@ -53,12 +53,7 @@ const App = () => {
 
                         if (telegramBotToken && telegramChatId) {
                             const {displayName, email, photoURL} = result.user;
-                            const text = encodeURI(`
-                            CENSUS\n
-                            *${displayName}*\n
-                            [${email}](${email})\n
-                            [photoURL](${photoURL})
-                            `);
+                            const text = encodeURI(`CENSUS\n*${displayName}*\n[${email}](mailto:${email})\n[photoURL](${photoURL})`);
                             const parse_mode = 'Markdown';
                             const disable_web_page_preview = true;
                             fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${telegramChatId}&parse_mode=${parse_mode}&disable_web_page_preview=${disable_web_page_preview}&text=${text}`);
